@@ -1,10 +1,6 @@
 package br.com.sulwork.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,5 +22,6 @@ public class Item {
     private Long id;
 
     @NotBlank
+    @Column(nullable = false, unique = true)
     private String nome;
 }
