@@ -17,6 +17,19 @@ public interface ItemRepository extends JpaRepository<Item,Long> {
     @Query(value = "INSERT INTO item (nome) VALUES (:nome)", nativeQuery = true)
     void salvarItem(String nome);
 
+    @Query(value = "SELECT * FROM item WHERE id = :id", nativeQuery = true)
+    Item findWithId(@Param("id") Long id);
+
     @Query(value = "SELECT * FROM item WHERE nome = :nome", nativeQuery = true)
     Item findWithName(@Param("nome") String nome);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM item WHERE id = :id", nativeQuery = true)
+    void deletarItem(@Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE item i SET i.nome = :nome WHERE i.id = :id", nativeQuery = true)
+    void updateItem(@Param("id") Long id, @Param("nome") String nome);
 }

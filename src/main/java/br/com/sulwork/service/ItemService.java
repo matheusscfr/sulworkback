@@ -1,7 +1,9 @@
 package br.com.sulwork.service;
 
+import br.com.sulwork.domain.Colaborador;
 import br.com.sulwork.domain.Item;
 import br.com.sulwork.domain.ItemSelecionado;
+import br.com.sulwork.exception.InvalidDataException;
 import br.com.sulwork.repository.ItemRepository;
 import br.com.sulwork.repository.ItemSelecionadoRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +41,19 @@ public class ItemService {
         return todosItens.stream().filter(item -> !idsSelecionados.contains(item.getId())).toList();
     }
 
+    public void atualizarItem(Long id, Item item){
+        Item itemEncontrado = repository.findWithId(id);
+
+        if(itemEncontrado == null){
+            throw new InvalidDataException("Item não existe.");
+        }
+        repository.updateItem(itemEncontrado.getId(),
+                item.getNome());
+
+    }
+
+
     public void deletar(Long id){
-        repository.deleteById(id);
+        repository.deletarItem(id);
     }
 }

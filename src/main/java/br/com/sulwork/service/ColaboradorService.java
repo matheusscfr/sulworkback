@@ -43,4 +43,9 @@ public class ColaboradorService {
         return  repository.findWithName(nome);
     }
 
+    public void deletarColaborador(Long id){
+        repository.deleteById(id);
+    }
+
+
 }
